@@ -12,4 +12,4 @@ function createDBConnection() {
 
 module.exports = function () {
     return createDBConnection;
-}
+};
