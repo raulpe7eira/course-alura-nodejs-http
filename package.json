@@ -1,0 +1,15 @@
+{
+  "name": "course-alura-nodejs-http",
+  "version": "1.0.0",
+  "description": "Projeto p/ curso alura nodejs e http",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Raul Pereira <raul.pereira@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "consign": "^0.1.2",
+    "express": "^4.14.0"
+  }
+}
