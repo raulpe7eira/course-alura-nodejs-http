@@ -29,7 +29,7 @@ module.exports = function (app) {
             var cartao = req.body['cartao'];
             console.log(cartao);
 
-            var clienteCartoes = new app.servicos.ClienteCartoes();
+            var clienteCartoes = new app.servicos.CartoesClient();
 
             clienteCartoes.autoriza(cartao, function (exception, request, response, retorno) {
                 if (exception) {
@@ -69,11 +69,20 @@ module.exports = function (app) {
             pagamento.data = new Date;
 
             pagamentoDao.salva(pagamento, function (exception, result) {
+                if (exception) {
+                    console.log(exception);
+                }
+
                 console.log('pagamento criado: ' + result);
 
-                res.location('/pagamentos/pagamento/' + result.insertId);
+                var id = result.insertId
+                res.location('/pagamentos/pagamento/' + id);
+                pagamento.id = id;
 
-                pagamento.id = result.insertId;
+                var cache = app.servicos.memcachedClient();
+                cache.set('pagamento-' + id, result, 100000, function (err) {
+                    console.log('nova chave: pagamento-' + id)
+                });
 
                 var response = {
                     dados_do_pagamento: pagamento,
@@ -133,6 +142,37 @@ module.exports = function (app) {
             }
             console.log('pagamento cancelado');
             res.status(204).send(pagamento);
+        });
+    });
+
+    app.get('/pagamentos/pagamento/:id', function (req, res) {
+        var id = req.params.id;
+        console.log('consultando pagamento: ' + id);
+
+        var memcachedClient = app.servicos.memcachedClient();
+        memcachedClient.get('pagamento-' + id, function (erro, retorno) {
+            if (erro || !retorno) {
+                console.log('MISS - chave nao encontrada');
+
+                var connection = app.persistencia.connectionFactory();
+                var pagamentoDao = new app.persistencia.PagamentoDao(connection);
+
+                pagamentoDao.buscaPorId(id, function (erro, resultado) {
+                    if (erro) {
+                        console.log('erro ao consultar no banco: ' + erro);
+                        res.status(500).send(erro);
+                        return;
+                    }
+                    console.log('pagamento encontrado: ' + JSON.stringify(resultado));
+                    res.json(resultado);
+                    return;
+                });
+                //HIT no cache
+            } else {
+                console.log('HIT - valor: ' + JSON.stringify(retorno));
+                res.json(retorno);
+                return;
+            }
         });
     });
 
