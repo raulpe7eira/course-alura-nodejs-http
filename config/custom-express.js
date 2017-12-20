@@ -8,7 +8,7 @@ var logger = require('../servicos/logger.js');
 module.exports = function () {
     var app = express();
 
-    app.use(morgan("common", {
+    app.use(morgan('common', {
         stream: {
             write: function (message) {
                 logger.info(message)
