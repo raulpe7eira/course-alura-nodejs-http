@@ -1,8 +1,8 @@
-var restify = require('restify');
+var clients = require('restify-clients');
 
 function CartoesClient() {
-    this._client = restify.createJsonClient({
-        url: 'http://localhost:3000',
+    this._client = clients.createJsonClient({
+        url: 'http://localhost:3001',
         version: '~1.0'
     });
 }

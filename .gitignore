@@ -56,3 +56,6 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# Content of rest project server example
+files/cardfast
