@@ -10,6 +10,7 @@ O progresso das aulas foi separado por branches.
 - [Aula 05: Trabalhando com Cache](https://github.com/raulpe7eira/course-alura-nodejs-http/tree/Aula-05)
 - [Aula 06: Utilizando logs na aplicação](https://github.com/raulpe7eira/course-alura-nodejs-http/tree/Aula-06)
 - [Aula 07: Escalabilidade](https://github.com/raulpe7eira/course-alura-nodejs-http/tree/Aula-07)
+- [Extra: Correções](https://github.com/raulpe7eira/course-alura-nodejs-http/tree/Correções)
 
 ## Deploy Local
 Necessário ter um banco MySQL configurado e rodando para o código ser executado [(alterar configurações de acesso neste arquivo)](../master/persistencia/connectionFactory.js). Na base de desenvolvimento (course_alura_nodejs_http_dsv) é necessário ter a tabela a seguir criada:
