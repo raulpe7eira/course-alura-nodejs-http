@@ -1,4 +1,4 @@
-# course-alura-nodejs-http
+# course-alura-nodejs_http
 Projeto desenvolvido no curso da Alura: [Node.js e HTTP: desenvolvendo uma API seguindo o estilo REST](https://cursos.alura.com.br/course/nodejs-avancado)
 
 ## Aulas
